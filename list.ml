@@ -3,7 +3,6 @@ module List = struct
     | Nil
     | Cons of 'a * ('a list)
 
-  (* Tail recursive length function *)
   let length xs =
     let rec tlen n xs =
       match xs with
@@ -36,8 +35,6 @@ module List = struct
   let product xs =
     foldl (fun x y -> x * y) 1 xs
 
-  (* range generates a list with range of numbers such that x in the range
-   is m <= x <= n holds. i is the optional increment which defaults to 1 *)
   let rec range ?(i=1) m n =
     match m, n with
     | m, n when m <= n -> Cons (m, range ~i:i (m+i) n)
