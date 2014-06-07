@@ -1,3 +1,5 @@
+#use "list.ml"
+
 module Stack = struct
   open List
 
@@ -15,6 +17,10 @@ module Stack = struct
   let peek = function
     | Nil -> raise Empty_stack
     | Cons (x, _) -> x
+
+  let empty = function
+    | Nil -> true
+    | _ -> false
 
 end
 
