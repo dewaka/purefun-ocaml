@@ -19,9 +19,11 @@ module Stack = struct
 end
 
 (* Test Stack *)
-open Stack
-
-let x = push empty_stack 10
-let x = push x 12
-let x = push x 13
-let x = push x 14
+let tests =
+  let open Stack in
+  let x = push empty_stack 10 in
+  let x = push x 12 in
+  let x = push x 13 in
+  let x = push x 14 in
+  let (p, _) = pop x
+  in assert (p == 14)
