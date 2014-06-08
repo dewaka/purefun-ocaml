@@ -23,7 +23,7 @@ module LeftistHeap (C : Comparable) = struct
     | Tree (r, _, _, _) -> r
 
   let makeTree x a b =
-    if rank a >= rank b
+    if rank a >= rank
     then Tree (rank b + 1, x, a, b)
     else Tree (rank a + 1, x, b, a)
 
