@@ -55,3 +55,18 @@ module BinHeap (C : Comparable) = struct
   let delete_min ts = let (Node (_, x, ts1)), ts2 = remove_min_tree ts
                       in merge (List.rev ts1) ts2
 end
+
+(* Test instances *)
+module IntC = struct
+  type t = int
+  let compare = (-)
+end
+
+module IntBinHeap = BinHeap(IntC) 
+                           
+let test =
+  let open IntBinHeap in
+  let h : heap = [Node (0, 7, [])] in
+  let h = insert 3 h in
+  let h = insert 8 h in 
+  find_min h
