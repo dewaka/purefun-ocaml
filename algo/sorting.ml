@@ -69,3 +69,14 @@ let rec merge_sort ls =
   | ls ->
      let first_half, second_half = split_at (length ls / 2) ls in
      merge (merge_sort first_half) (merge_sort second_half)
+
+(* Insertion sort *)
+let rec insertion_sort xs =
+  let rec insert x ls =
+    match ls with
+    | [] -> [x]
+    | (y::ys) -> if x < y then x::ls else y::insert x ys
+  in
+  match xs with
+  | [] -> []
+  | (x::xs') -> insert x (insertion_sort xs')
