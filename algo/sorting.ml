@@ -90,6 +90,7 @@ let rec insertion_sort xs =
   | [] -> []
   | (x::xs') -> insert x (insertion_sort xs')
 
+(* Bubble sort *)
 let bubble_sort lst = 
   let rec sort accum rev lst =
     match lst, rev with
