@@ -51,6 +51,10 @@ let reverse ls =
     | [] -> acc
     | (x::xs) -> loop (x::acc) xs
   in loop [] ls
+          
+(* Helper functions to help program in F# style *)
+let (|>) x f = f x;;
+let (<|) x f = f x;;
 
 (* Quicksort *)
 let rec quick_sort = function
@@ -60,8 +64,6 @@ let rec quick_sort = function
                quick_sort smaller @ [x] @ quick_sort larger
 
 (* Merge sort *)
-
-
 let rec merge_sort ls =
   let rec merge xs ys =
     match xs, ys with
