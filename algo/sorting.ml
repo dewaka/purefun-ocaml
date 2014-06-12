@@ -44,6 +44,13 @@ let (--) m n =
   let rec go m n = if m <= n then m::go (m+1) n
                    else []
   in go m n
+        
+let reverse ls = 
+  let rec loop acc ls =
+    match ls with
+    | [] -> acc
+    | (x::xs) -> loop (x::acc) xs
+  in loop [] ls
 
 (* Quicksort *)
 let rec quick_sort = function
@@ -80,3 +87,12 @@ let rec insertion_sort xs =
   match xs with
   | [] -> []
   | (x::xs') -> insert x (insertion_sort xs')
+
+let bubble_sort lst = 
+  let rec sort accum rev lst =
+    match lst, rev with
+    | [], true -> reverse accum 
+    | [], false -> sort [] true (reverse accum)
+    | x::y::tail, _ when x > y -> sort (y::accum) false (x::tail)
+    | head::tail, _ -> sort (head::accum) rev tail
+  in sort [] true lst
