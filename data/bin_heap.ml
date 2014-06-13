@@ -62,11 +62,11 @@ module IntC = struct
   let compare = (-)
 end
 
-module IntBinHeap = BinHeap(IntC) 
-                           
+module IntBinHeap = BinHeap(IntC)
+
 let test =
   let open IntBinHeap in
   let h : heap = [Node (0, 7, [])] in
   let h = insert 3 h in
-  let h = insert 8 h in 
+  let h = insert 8 h in
   find_min h
