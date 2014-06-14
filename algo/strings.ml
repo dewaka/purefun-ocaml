@@ -40,4 +40,14 @@ module Strings = struct
            | m -> m
     in search 0
 
+  (* Knuth-Morris-Pratt String matching algorithm *)
+  let kmp_match needle haystack =
+    let m, n = String.length needle, String.length haystack in
+    let rec search i j =
+      if i >= m then Some (((j-m)))
+      else if j-i > n-m then None
+      else if (String.get needle i) = (String.get haystack j) then search (i+1) (j+1)
+      else search 0 (j+1)
+    in search 0 0
+
 end
