@@ -1,5 +1,15 @@
-(* String Processing Algorithms *)
+(* Helper operators *)
+let (--) m n =
+  let rec aux i = if i <= n then i::aux (i+1) else []
+  in aux m
 
+(* Pipe operators *)
+let (|>) x f = f x
+let (<|) f x = f x
+
+let flip f x y = f y x
+
+(* String Processing Algorithms *)
 module Strings = struct
   (* Helper function to lookup values of assoc lists *)
   let rec lookup x xs =
@@ -31,12 +41,6 @@ module Strings = struct
     match xs, ys with
     | (x::xs'), (y::ys') -> (x,y)::zip xs' ys'
     | _, _ -> []
-
-  let flip f x y = f y x
-
-  let (--) m n =
-    let rec aux i = if i <= n then i::aux (i+1) else []
-    in aux m
 
   let rec is_prefix xs ys =
     match xs, ys with
@@ -107,6 +111,34 @@ module Strings = struct
     let count_matches ls x = sum (List.map (fun e -> if x=e then 1 else 0) ls) in
     let proper_matches = sum (List.map (count_matches ps) ss) - 1 in
     proper_matches
+
+  let proper_prefixes str =
+    let sx = ref [] in
+    for i = 1 to (String.length str - 1) do
+      sx := String.sub str 0 i::!sx;
+    done;
+    !sx
+
+  let proper_suffixes str =
+    let sx = ref [] in
+    let n = String.length str in
+    for i = n-1 downto 1 do
+      sx := String.sub str i (n-i)::!sx;
+    done;
+    !sx
+
+  (* To find the KMP index I have to find the length of the biggest common
+     substring in proper prefixes and proper suffixes *)
+  let kmp_index str =
+    let ps, ss = proper_prefixes str, proper_suffixes str in
+    let rec contains elem = function
+      | [] -> false
+      | (x::xs) -> x=elem || contains elem xs in
+    let rec index = function
+      | [] -> 0
+      | (x::xs) -> if contains x ps then String.length x
+                   else index xs
+    in index ss
 
   let print_partial_match_table str =
     let n = String.length str in
