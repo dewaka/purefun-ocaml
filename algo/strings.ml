@@ -140,6 +140,16 @@ module Strings = struct
                    else index xs
     in index ss
 
+  let kms_index_array str =
+    let n = String.length str in
+    let arr : int array = Array.make n 0 in
+    for i = 0 to n-1 do
+      let s = String.sub str 0 (i+1) in
+      let k = kmp_index s in
+      Array.set arr i k
+    done;
+    arr
+
   let print_partial_match_table str =
     let n = String.length str in
     let substrs = List.map (String.sub str 0) (1 -- n) in
