@@ -63,6 +63,18 @@ let rec quick_sort = function
                let larger = filter (fun p -> p >= x) xs in
                quick_sort smaller @ [x] @ quick_sort larger
 
+let partition p xs =
+  let rec go ps ns = function
+    | [] -> ps, ns
+    | (x::xs) -> if p x then go (x::ps) ns xs
+	         else go ps (x::ns) xs
+  in go [] [] xs
+
+let rec quick_sort' = function
+  | [] -> []
+  | (x::xs) -> let smaller, larger = partition (fun p -> p < x) xs in
+               quick_sort smaller @ [x] @ quick_sort larger
+
 (* Merge sort *)
 let rec merge_sort ls =
   let rec merge xs ys =
